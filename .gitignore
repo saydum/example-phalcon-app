@@ -1,0 +1,5 @@
+/vendor/
+.docker
+.env
+composer.lock
+cache

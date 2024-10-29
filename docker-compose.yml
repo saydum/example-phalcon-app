@@ -1,0 +1,56 @@
+services:
+  
+  mysql:
+    image: percona:8.0
+    container_name: phalconapp-mysql
+    restart: unless-stopped
+    command:
+      - --sql_mode=
+      - --character-set-server=utf8
+      - --collation-server=utf8_general_ci
+    env_file: .env
+    ports:
+      - "3337:3306"
+    volumes:
+      - data-db:/var/lib/mysql
+    networks:
+      - phalconapp
+  
+  phalconapp:
+    build:
+      context: ./.docker/php/
+      dockerfile: Dockerfile
+    image: phalconapp-php
+    container_name: phalconapp
+    depends_on:
+      - mysql
+    restart: unless-stopped
+    links:
+      - mysql
+    networks:
+      - phalconapp
+    volumes:
+      - ./:/var/www/html
+    tty: true
+    stdin_open: true
+
+  web:
+    image: nginx:stable-alpine
+    container_name: phalconapp-nginx
+    ports:
+      - "8088:80"
+    depends_on:
+      - phalconapp
+    restart: unless-stopped
+    volumes:
+      - ./.docker/nginx:/etc/nginx/conf.d
+      - ./:/var/www/html
+    networks:
+      - phalconapp
+
+volumes:
+  data-db:
+
+networks:
+  phalconapp:
+    driver: bridge

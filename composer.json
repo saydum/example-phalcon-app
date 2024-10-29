@@ -1,0 +1,40 @@
+{
+    "name": "saydum/example-phalcon-app",
+    "authors": [
+        {
+            "name": "saydum",
+            "email": "saydum.it5@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "config": {
+        "platform": {
+            "php": "8.3.11"
+        },
+        "sort-packages": true,
+        "allow-plugins": {
+            "wikimedia/composer-merge-plugin": true
+        }
+    },
+    "require": {
+        "php": "^8.3",
+        "ext-apcu": "*",
+        "ext-fileinfo": "*",
+        "ext-imagick": "*",
+        "ext-intl": "*",
+        "ext-json": "*",
+        "ext-memcached": "*",
+        "ext-openssl": "*",
+        "ext-phalcon": "^5.8.0"
+    },
+    "require-dev": {
+        "phalcon/dd": "^v2.0.0",
+        "phalcon/devtools": "^5.0@dev",
+        "phalcon/ide-stubs": "^5.8",
+        "snowair/phalcon-debugbar": "^1.2"
+    }
+}
